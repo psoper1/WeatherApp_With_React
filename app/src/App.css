@@ -2,6 +2,35 @@
   text-align: center;
 }
 
+.btn {
+  margin-left: 30%;
+}
+
+#input {
+  margin-left: 18%;
+}
+
+.section {
+  background-color: #4B515D;
+}
+
+.card {
+  color: #4B515D;
+  border-radius: 35px;
+}
+
+.h6 {
+  color: #1C2331;
+}
+
+.divclassname {
+  color: #868B94;
+}
+
+.classFont {
+  font-size: 1rem;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

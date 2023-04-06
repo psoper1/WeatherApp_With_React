@@ -1,7 +1,7 @@
 import './App.css';
 import Temp from './components/Temp';
 import 'bootstrap/dist/css/bootstrap.css';
-import GetButton from './components/GetButton';
+// import GetButton from './components/GetButton';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ function App() {
         );
   
         setData(result.data);
-        console.log(result.data);
+        // console.log(result.data);
       };
   
       fetchData();
@@ -24,7 +24,7 @@ function App() {
   
   return (
     <>
-    <GetButton setData={setData}/>
+    {/* <GetButton setData={setData}/> */}
     <Temp data={data}/>
     </>
   );

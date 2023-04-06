@@ -1,6 +1,15 @@
+import { useRef } from "react";
+
 function GetButton( { setData } ) {
+    const inputRef = useRef('');
+    const handleClick = () => {
+        console.log(inputRef.current.value)
+    }
     return (
-        <button onClick={() => setData(true)} id="submitZip" className="btn btn-outline-primary">Get Weather</button>
+        <>
+        <input id="input" ref={inputRef}/>
+        <button onClick={handleClick} id="submitZip" className="btn btn-outline-primary">Get Weather</button>
+        </>
     )
 }
 
