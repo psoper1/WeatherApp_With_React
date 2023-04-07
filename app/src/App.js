@@ -2,7 +2,7 @@ import './App.css';
 // import Temp from './components/Temp';
 import 'bootstrap/dist/css/bootstrap.css';
 // import GetButton from './components/GetButton';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 
 function App() {
@@ -11,22 +11,25 @@ function App() {
   const inputRef = useRef('');
   const [input, setInput] = useState(inputRef);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        `https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=82d10d8b9124f9ece3e56c62befeda72`
-      );
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await axios(
+  //       `https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=82d10d8b9124f9ece3e56c62befeda72`
+  //     );
 
-      setData(result.data);
-      // console.log(result.data);
-    };
+  //     setData(result.data);
+  //     // console.log(result.data);
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
+  const BASE_URL = `https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=82d10d8b9124f9ece3e56c62befeda72`
 
-  // const handleClick = () => {
-  //   console.log(inputRef.current.value)
-  // }
+  const handleClick = () => {
+    setInput(inputRef.current.value)
+    axios.get(BASE_URL).then(res => {setData(res.data)})
+    (console.log('clicked'))
+}
 
   const temp = Math.round(data?.main?.temp * 9 / 5 - 459.67);
   return (
@@ -40,7 +43,7 @@ function App() {
               <div className="card">
                 <div className="card-body p-4">
                   <input id="input" ref={inputRef} />
-                  <button onClick={setInput(inputRef)} id="submitZip" className="btn btn-outline-primary">Get Weather</button>
+                  <button onClick={handleClick} id="submitZip" className="btn btn-outline-primary">Get Weather</button>
 
                   <div className="d-flex">
                     <h6 className="flex-grow-1">{data.name}</h6>
