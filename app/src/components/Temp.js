@@ -2,7 +2,7 @@ import GetButton from "./GetButton";
 
 
 function Temp({ data }) {
-    let temp = Math.round(data?.main?.temp * 9 / 5 - 459.67);
+    const temp = Math.round(data?.main?.temp * 9 / 5 - 459.67);
     return (
         <>
             <section className="section vh-100">
@@ -23,7 +23,7 @@ function Temp({ data }) {
                                     <div className="d-flex flex-column text-center mt-5 mb-4">
                                         <h6 className="h6 display-4 mb-0 font-weight-bold">{temp}°F</h6>
                                         {/* Why doesn't this work? It's an array? */}
-                                        <span className="divclassname small">{data?.weather?.main}</span>
+                                        <span className="divclassname small">{data?.weather?.[0]?.main}</span>
                                     </div>
 
                                     <div className="d-flex align-items-center">
