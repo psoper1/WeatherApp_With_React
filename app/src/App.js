@@ -1,37 +1,41 @@
 import './App.css';
-// import Temp from './components/Temp';
 import 'bootstrap/dist/css/bootstrap.css';
-// import GetButton from './components/GetButton';
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function App() {
-
   const [data, setData] = useState({});
-  const inputRef = useRef('');
-  const [input, setInput] = useState(inputRef);
+  const [input, setInput] = useState('');
+  const [time, setTime] = useState(new Date()); // define state variable for current time
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const result = await axios(
-  //       `https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=82d10d8b9124f9ece3e56c62befeda72`
-  //     );
+  const BASE_URL = `https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=82d10d8b9124f9ece3e56c62befeda72`;
+  const temp = Math.round(data?.main?.temp * 9 / 5 - 459.67);
 
-  //     setData(result.data);
-  //     // console.log(result.data);
-  //   };
-
-  //   fetchData();
-  // }, []);
-  const BASE_URL = `https://api.openweathermap.org/data/2.5/weather?zip=${input}&appid=82d10d8b9124f9ece3e56c62befeda72`
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date()); // update the current time every second
+    }, 1000);
+    return () => clearInterval(timer); // cleanup function to clear interval
+  }, []);
 
   const handleClick = () => {
-    setInput(inputRef.current.value)
-    axios.get(BASE_URL).then(res => {setData(res.data)})
-    (console.log('clicked'))
-}
+    axios
+      .get(BASE_URL)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        alert('Zip Code not found, please try again.')
+        console.error(error);
+      });
+  };
 
-  const temp = Math.round(data?.main?.temp * 9 / 5 - 459.67);
+  // format the time string
+  const hours = time.getHours() % 12 || 12;
+  const minutes = time.getMinutes().toString().padStart(2, '0');
+  const ampm = time.getHours() >= 12 ? 'PM' : 'AM';
+  const timeString = `${hours}:${minutes} ${ampm}`;
+
   return (
     <>
       <section className="section vh-100">
@@ -42,17 +46,16 @@ function App() {
 
               <div className="card">
                 <div className="card-body p-4">
-                  <input id="input" ref={inputRef} />
+                  <input id="input" onChange={(e) => setInput(e.target.value)} />
                   <button onClick={handleClick} id="submitZip" className="btn btn-outline-primary">Get Weather</button>
 
                   <div className="d-flex">
                     <h6 className="flex-grow-1">{data.name}</h6>
-                    <h6>15:07</h6>
+                    <h6 className='time'>{timeString}</h6>
                   </div>
 
                   <div className="d-flex flex-column text-center mt-5 mb-4">
                     <h6 className="h6 display-4 mb-0 font-weight-bold">{temp}°F</h6>
-                    {/* Why doesn't this work? It's an array? */}
                     <span className="divclassname small">{data?.weather?.[0]?.main}</span>
                   </div>
 
@@ -66,8 +69,6 @@ function App() {
                       </div>
                     </div>
                     <div>
-                      {/* <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-weather/ilu1.webp"
-                                                width="100px"/> */}
                     </div>
                   </div>
 
