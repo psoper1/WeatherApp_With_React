@@ -49,7 +49,7 @@ function App() {
             <div className="col-md-8 col-lg-6 col-xl-4">
               <div className="card">
                 <div className="card-body p-4" onKeyDown={handleKeyPress}>
-                  <input id="input" className='form-control' onChange={(e) => setInput(e.target.value)} />
+                  <input id="input" className='form-control' placeholder='Enter ZIP Code' onChange={(e) => setInput(e.target.value)} />
                   <div className='button text-center'>
                   <button onClick={handleClick} id="submitZip" className="btn btn-primary">Get Weather</button>
                   </div>
