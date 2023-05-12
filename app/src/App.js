@@ -50,7 +50,9 @@ function App() {
               <div className="card">
                 <div className="card-body p-4" onKeyDown={handleKeyPress}>
                   <input id="input" className='form-control' onChange={(e) => setInput(e.target.value)} />
-                  <button onClick={handleClick} id="submitZip" className="btn btn-outline-primary">Get Weather</button>
+                  <div className='button text-center'>
+                  <button onClick={handleClick} id="submitZip" className="btn btn-primary">Get Weather</button>
+                  </div>
                   <div className="d-flex">
                     <h6 className="flex-grow-1">{data.name}</h6>
                     <h6 className='time'>{timeString}</h6>
