@@ -22,7 +22,7 @@ function App() {
       .get(BASE_URL)
       .then((res) => {
         setData(res.data);
-        console.log(data?.main?.humidity)
+        // console.log(data?.main?.humidity)
       })
       .catch((error) => {
         alert('Zip Code not found, please try again.')
